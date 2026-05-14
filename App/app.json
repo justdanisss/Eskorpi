@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Eskorpi",
+    "slug": "eskorpi-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#080808",
+    "splash": {
+      "backgroundColor": "#080808"
+    },
+    "android": {
+      "package": "com.eskorpi.robot",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.BLUETOOTH",
+        "android.permission.BLUETOOTH_ADMIN",
+        "android.permission.BLUETOOTH_CONNECT",
+        "android.permission.BLUETOOTH_SCAN",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.BLUETOOTH_ADVERTISE"
+      ]
+    },
+    "plugins": [
+      "expo-av",
+      [
+        "with-rn-bluetooth-classic",
+        {
+          "peripheralUsageDescription": "Eskorpi necesita Bluetooth para conectarse al robot",
+          "alwaysUsageDescription": "Eskorpi necesita Bluetooth para controlar el robot"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "da09937e-9ea8-4ac9-92f0-a0b9e7c0c129"
+      }
+    }
+  }
+}

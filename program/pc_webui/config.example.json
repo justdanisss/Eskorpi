@@ -1,0 +1,9 @@
+{
+  "groq_api_key": "",
+  "personalidad_id": "amigos",
+  "voz_id": "hombre_es",
+  "auto_speak": true,
+  "auto_execute": true,
+  "pulses_per_meter": 120.0,
+  "pulses_per_degree": 11.0
+}

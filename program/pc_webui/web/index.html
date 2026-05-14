@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eskorpi Control Center</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero card">
+        <div class="hero-copy">
+          <p class="eyebrow">SKORPY CONTROL CENTER</p>
+          <h1>Eskorpi desde tu PC</h1>
+          <p class="lede">
+            Centro de control profesional con IA, telemetria, configuracion avanzada y conexion serie a 19200.
+          </p>
+        </div>
+        <div class="status-panel">
+          <div class="pill" id="connection-pill">Sin conexion</div>
+          <div class="minor" id="connection-meta">Esperando arranque</div>
+        </div>
+      </section>
+
+      <nav class="subnav card" aria-label="Secciones principales">
+        <button type="button" class="subnav-link active" data-view-btn="centro">Centro</button>
+        <button type="button" class="subnav-link" data-view-btn="manual">Manual</button>
+        <button type="button" class="subnav-link" data-view-btn="configuracion">Configuraciones</button>
+        <button type="button" class="subnav-link" data-view-btn="sistema">Sistema</button>
+      </nav>
+
+      <section class="view-stack">
+        <section class="view active" data-view="centro">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">AREA PRINCIPAL</p>
+              <h2>Centro IA</h2>
+            </div>
+            <p class="minor">Consulta, voz, respuesta limpia y comandos detectados.</p>
+          </div>
+
+          <section class="grid top-grid">
+            <article class="card">
+              <h3>Interaccion con la IA</h3>
+              <form id="ask-form" class="ask-form">
+                <textarea id="ask-text" placeholder="Escribe o dicta una orden para Eskorpi..."></textarea>
+                <div class="row">
+                  <button type="submit">Preguntar a la IA</button>
+                  <button type="button" class="ghost" id="voice-btn">Hablar</button>
+                </div>
+              </form>
+              <div class="response-box">
+                <p class="minor">Respuesta limpia</p>
+                <div id="assistant-text" class="response-text">Aun sin respuesta.</div>
+              </div>
+              <div class="response-box">
+                <p class="minor">Comandos detectados</p>
+                <div id="assistant-commands" class="chips"></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Resumen operativo</h3>
+              <div class="mini-grid">
+                <article class="mini-card">
+                  <span>Distancia</span>
+                  <strong id="distance">--</strong>
+                </article>
+                <article class="mini-card">
+                  <span>Temperatura</span>
+                  <strong id="temperature">--</strong>
+                </article>
+                <article class="mini-card">
+                  <span>Humedad</span>
+                  <strong id="humidity">--</strong>
+                </article>
+                <article class="mini-card">
+                  <span>IR izq</span>
+                  <strong id="ir-left">--</strong>
+                </article>
+                <article class="mini-card">
+                  <span>IR der</span>
+                  <strong id="ir-right">--</strong>
+                </article>
+                <article class="mini-card">
+                  <span>Seguimiento</span>
+                  <strong id="follow-mode">--</strong>
+                </article>
+              </div>
+              <div class="response-box prompt-shell">
+                <p class="minor">Prompt activo</p>
+                <pre id="prompt-preview" class="prompt-box compact">Aun sin consulta.</pre>
+              </div>
+            </article>
+          </section>
+        </section>
+
+        <section class="view" data-view="manual">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">CONTROL DIRECTO</p>
+              <h2>Manual</h2>
+            </div>
+            <p class="minor">Movimientos, parada inmediata y envio de comandos directos.</p>
+          </div>
+
+          <section class="grid">
+            <article class="card">
+              <h3>Acciones manuales</h3>
+              <div class="actions manual-actions">
+                <button data-action="forward">Avanzar</button>
+                <button data-action="backward">Retroceder</button>
+                <button data-action="turn_l">Giro izq</button>
+                <button data-action="turn_r">Giro der</button>
+                <button data-command="FOLLOW:1">Seguirme</button>
+                <button data-command="FOLLOW:0" class="ghost">Parar seguimiento</button>
+                <button data-command="STOP:0" class="danger action-stop">STOP</button>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Comando directo</h3>
+              <form id="command-form" class="stack">
+                <input id="custom-command" placeholder="MOVE_F:500" />
+                <button>Enviar comando</button>
+              </form>
+              <div class="response-box">
+                <p class="minor">Ultima transmision</p>
+                <div id="last-tx" class="response-text">--</div>
+              </div>
+            </article>
+          </section>
+        </section>
+
+        <section class="view" data-view="configuracion">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">AJUSTES DEL SISTEMA</p>
+              <h2>Configuraciones</h2>
+            </div>
+            <p class="minor">Conexion, API key, personalidad, voz y automatismos.</p>
+          </div>
+
+          <section class="grid top-grid">
+            <article class="card">
+              <h3>Configuracion de IA</h3>
+              <div class="stack">
+                <label class="field">
+                  <span>Groq API Key</span>
+                  <input id="groq-key" type="password" placeholder="gsk_..." />
+                </label>
+                <label class="field">
+                  <span>Personalidad</span>
+                  <select id="personalidad"></select>
+                </label>
+                <label class="field">
+                  <span>Voz</span>
+                  <select id="voz"></select>
+                </label>
+                <label class="toggle">
+                  <input id="auto-execute" type="checkbox" />
+                  <span>Ejecutar comandos automaticamente</span>
+                </label>
+                <label class="toggle">
+                  <input id="auto-speak" type="checkbox" />
+                  <span>Hablar la respuesta automaticamente</span>
+                </label>
+                <div class="calibration-grid">
+                  <label class="field">
+                    <span>Pulsos por metro</span>
+                    <input id="pulses-per-meter" type="number" step="1" min="1" />
+                  </label>
+                  <label class="field">
+                    <span>Pulsos por grado</span>
+                    <input id="pulses-per-degree" type="number" step="0.1" min="0.1" />
+                  </label>
+                  <label class="field">
+                    <span>Distancia manual (cm)</span>
+                    <input id="manual-distance-cm" type="number" step="1" min="1" />
+                  </label>
+                  <label class="field">
+                    <span>Giro manual (deg)</span>
+                    <input id="manual-turn-deg" type="number" step="1" min="1" />
+                  </label>
+                </div>
+                <p class="minor">Ajusta estos valores para calibrar distancia y giros sin tocar el firmware.</p>
+                <div class="row">
+                  <button id="save-config" type="button">Guardar configuracion</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Conexion serie y mock</h3>
+              <div class="stack">
+                <div class="row connection-actions">
+                  <button id="connect-mock">Entrar en Mock</button>
+                  <button class="ghost" id="refresh-ports">Refrescar puertos</button>
+                  <button class="danger" id="disconnect">Desconectar</button>
+                </div>
+                <div class="connection-grid">
+                  <select id="serial-port"></select>
+                  <input id="manual-port" type="text" placeholder="COM5 o /dev/rfcomm0" />
+                  <input id="baudrate" type="number" value="19200" />
+                  <button id="connect-serial">Conectar al puerto elegido</button>
+                </div>
+                <div class="port-target">
+                  <span>Puerto objetivo</span>
+                  <strong id="selected-port-target">Ninguno</strong>
+                </div>
+                <p class="minor" id="ports-help">Windows: COMx. Linux: /dev/rfcomm0, /dev/ttyUSB0 o similar.</p>
+                <dl class="meta compact-meta">
+                  <div><dt>Puerto</dt><dd id="port">--</dd></div>
+                  <div><dt>Baudios</dt><dd id="baud">--</dd></div>
+                  <div><dt>Ultimo RX</dt><dd id="last-rx">--</dd></div>
+                </dl>
+              </div>
+            </article>
+          </section>
+        </section>
+
+        <section class="view" data-view="sistema">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">SUPERVISION</p>
+              <h2>Sistema</h2>
+            </div>
+            <p class="minor">Estado del hardware, telemetria completa y terminal de eventos.</p>
+          </div>
+
+          <section class="grid">
+            <article class="card">
+              <h3>Estado del hardware</h3>
+              <dl class="meta">
+                <div><dt>Hardware</dt><dd id="hw-status">--</dd></div>
+                <div><dt>Puerto</dt><dd id="port-duplicate">--</dd></div>
+                <div><dt>Baudios</dt><dd id="baud-duplicate">--</dd></div>
+                <div><dt>Ultimo RX</dt><dd id="last-rx-duplicate">--</dd></div>
+                <div><dt>Ultimo TX</dt><dd id="last-tx-duplicate">--</dd></div>
+              </dl>
+            </article>
+
+            <article class="card">
+              <h3>Telemetria</h3>
+              <div class="mini-grid">
+                <article class="mini-card">
+                  <span>Distancia</span>
+                  <strong id="distance-duplicate">--</strong>
+                </article>
+                <article class="mini-card">
+                  <span>Temperatura</span>
+                  <strong id="temperature-duplicate">--</strong>
+                </article>
+                <article class="mini-card">
+                  <span>Humedad</span>
+                  <strong id="humidity-duplicate">--</strong>
+                </article>
+                <article class="mini-card">
+                  <span>Seguimiento</span>
+                  <strong id="follow-mode-duplicate">--</strong>
+                </article>
+              </div>
+            </article>
+          </section>
+
+          <section class="card">
+            <h3>Terminal</h3>
+            <div id="logs" class="logs"></div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

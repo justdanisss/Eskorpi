@@ -1,0 +1,21 @@
+node_modules/
+.expo/
+dist/
+build/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# Variables de entorno — NUNCA subir keys aquí
+.env
+.env.local
+.env.*.local
+
+# Sistema
+.DS_Store
+Thumbs.db

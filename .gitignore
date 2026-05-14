@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.DS_Store
+
+program/pc_webui/config.json
+App/node_modules/
+App/.git/
